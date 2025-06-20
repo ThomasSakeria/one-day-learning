@@ -1,0 +1,34 @@
+global-styling:
+  version: 1.x
+  css:
+    theme:
+      css/components/navigation/horizontal-menu.css: {}
+      css/components/navigation/toolbar-menu.css: {}
+      css/components/layout/header.css: {}
+      css/components/layout/header-actions.css: {}
+      css/components/content/content-area.css: {}
+      css/components/search/search-form.css: {}
+      css/components/content/welcome-section.css: {}
+      css/components/content/courses-section.css: {}
+      css/components/content/courses-page.css: {}
+      css/components/layout/footer.css: {}
+      css/components/layout/page.css: {}
+      css/components/content/course-details.css: {}
+      css/components/content/about-us.css: {}
+      css/components/user/custom-login-page.css: {}
+      css/components/user/custom-register-page.css: {}
+      css/components/user/user-account.css: {}
+      css/components/contact/contact-page.css: {}
+  dependencies:
+    - core/fontawesome
+
+contact-page:
+  version: 1.x
+  css:
+    theme:
+      css/components/contact/contact-page.css: {}
+  dependencies:
+    - core/drupal
+    - core/classy
+    - core/fontawesome
+    - mytheme/global-styling 

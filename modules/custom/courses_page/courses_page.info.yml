@@ -1,0 +1,5 @@
+name: Courses Page
+type: module
+description: 'Provides a courses page with filtering capabilities.'
+core_version_requirement: ^9 || ^10
+package: Custom 

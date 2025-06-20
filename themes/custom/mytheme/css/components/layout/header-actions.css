@@ -1,0 +1,56 @@
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.site-header__actions a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.user-login-link {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+}
+
+.user-login-link:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.user-register-link {
+  border: 1px solid #667eea;
+  color: #667eea !important;
+}
+
+.user-register-link:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white !important;
+  border-color: transparent;
+}
+
+.user-account-link,
+.user-logout-link {
+  color: #333 !important;
+}
+
+.user-account-link:hover,
+.user-logout-link:hover {
+  color: #667eea !important;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .site-header__actions {
+    margin-top: 1rem;
+    margin-left: 0;
+    justify-content: center;
+  }
+} 

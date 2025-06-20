@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme override for the search form.
+ */
+#}
+<div class="search-form-container">
+  <h2 class="search-form-title">{{ 'Search'|t }}</h2>
+  <form{{ attributes.addClass('search-form') }}>
+    {{ children }}
+  </form>
+  <div class="search-form-description">
+    {{ 'Enter keywords to search the site.'|t }}
+  </div>
+</div> 

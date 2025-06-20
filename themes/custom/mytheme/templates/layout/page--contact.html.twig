@@ -1,0 +1,65 @@
+{#
+/**
+ * @file
+ * Theme implementation to display the contact page.
+ */
+#}
+<div class="layout-container">
+  {% include '@mytheme/layout/header.html.twig' %}
+  
+  <main role="main" class="content-area">
+    <a id="main-content" tabindex="-1"></a>
+    
+    <div class="contact-page">
+      <div class="contact-container">
+        {# Contact Information Section #}
+        <div class="contact-info">
+          <h2>{{ 'Get in Touch'|t }}</h2>
+          <p>{{ 'We\'d love to hear from you. Send us a message and we\'ll respond as soon as possible.'|t }}</p>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <span class="contact-icon">📍</span>
+              <div>
+                <h3>{{ 'Address'|t }}</h3>
+                <p>{{ '123 Education Street, Learning City, 12345'|t }}</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <span class="contact-icon">📞</span>
+              <div>
+                <h3>{{ 'Phone'|t }}</h3>
+                <p>{{ '+1 (555) 123-4567'|t }}</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <span class="contact-icon">✉️</span>
+              <div>
+                <h3>{{ 'Email'|t }}</h3>
+                <p>{{ 'info@learningplatform.com'|t }}</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <span class="contact-icon">🕒</span>
+              <div>
+                <h3>{{ 'Business Hours'|t }}</h3>
+                <p>{{ 'Monday - Friday: 9:00 AM - 6:00 PM'|t }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {# Contact Form Section #}
+        <div class="contact-form-wrapper">
+          <h2>{{ 'Send us a Message'|t }}</h2>
+          {{ page.content }}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {% include '@mytheme/layout/footer.html.twig' %}
+</div> 

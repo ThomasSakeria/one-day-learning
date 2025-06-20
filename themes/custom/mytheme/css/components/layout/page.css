@@ -1,0 +1,35 @@
+html body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.page-wrapper {
+  background-color: #3d4146;
+  min-height: 100vh;
+}
+
+
+.layout-container {
+  background-color: #ffffff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+  max-width: 1400px;
+  min-height: 100vh;
+}
+
+.content-area {
+  background-color: #ffffff;
+  padding: 2rem 0;
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .layout-container {
+    margin: 0;
+  }
+  
+  .content-area {
+    padding: 1rem;
+  }
+} 

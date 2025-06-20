@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Custom contact form template with icons.
+ */
+#}
+<!-- CUSTOM CONTACT FORM TEMPLATE LOADED -->
+<div class="contact-page">
+  <div class="contact-container">
+    <div class="contact-info">
+      <h2>{{ 'Get in Touch'|t }}</h2>
+      <p>{{ 'Have questions? We\'d love to hear from you. Send us a message and we\'ll respond as soon as possible.'|t }}</p>
+      
+      <div class="contact-details">
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <div>
+            <h3>{{ 'Address'|t }}</h3>
+            <p>{{ '123 Education Street, Learning City, 12345'|t }}</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon">📞</span>
+          <div>
+            <h3>{{ 'Phone'|t }}</h3>
+            <p>{{ '+1 (555) 123-4567'|t }}</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon">✉️</span>
+          <div>
+            <h3>{{ 'Email'|t }}</h3>
+            <p>{{ 'info@learningplatform.com'|t }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-wrapper">
+      <form{{ attributes.addClass('contact-form') }}>
+        {{ title_prefix }}
+        {% if label %}
+          <h2{{ title_attributes }}>{{ label }}</h2>
+        {% endif %}
+        {{ title_suffix }}
+        
+        {{ children.name }}
+        {{ children.mail }}
+        {{ children.subject }}
+        {{ children.message }}
+        
+        <div class="form-actions">
+          {{ children.actions.submit }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,274 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the My Theme theme.
+ */
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for menu().
+ */
+function mytheme_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  if (isset($variables['menu_name'])) {
+    // Add our horizontal menu suggestion.
+    $suggestions[] = 'menu__' . $variables['menu_name'] . '__horizontal';
+  }
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function mytheme_preprocess_menu(&$variables) {
+  // Add our horizontal menu class to all menus.
+  $variables['attributes']['class'][] = 'menu-horizontal';
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function mytheme_preprocess_page(&$variables) {
+  // Add header variables.
+  $variables['site_logo'] = theme_get_setting('logo.url');
+  $variables['site_name'] = \Drupal::config('system.site')->get('name');
+  $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
+  
+  // Add course data for front page.
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $path = \Drupal::service('path.current')->getPath();
+  
+  // Check if this is the front page (including Views front page)
+  if ($route_name === 'system.site_front_page' || 
+      $route_name === 'view.frontpage.page_1' ||
+      $path === '/' || 
+      $path === '/drupal' || 
+      $path === '/drupal/' ||
+      $path === '/node') {
+    $variables['courses'] = mytheme_get_course_data();
+  }
+  
+  // Add course data for courses page - check both path and node title
+  if ($path === '/courses' || $path === '/drupal/courses') {
+    $variables['courses'] = mytheme_get_course_data();
+  }
+  
+  // Also check if this is a node with title "Courses"
+  if ($route_name === 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node && $node->getType() === 'page') {
+      // Check if this is the courses page by title
+      if ($node->getTitle() === 'Courses') {
+        $variables['courses'] = mytheme_get_course_data();
+      }
+    }
+  }
+}
+
+/**
+ * Get course data for the front page.
+ */
+function mytheme_get_course_data() {
+  $courses = [
+    'web-development' => [
+      'title' => 'Web Development',
+      'description' => 'Master modern web development with HTML, CSS, JavaScript, and popular frameworks.',
+      'image' => 'course1.jpg',
+      'available_slots' => 3,
+      'course_date' => 'June 25, 2025',
+      'slug' => 'web-development',
+    ],
+    'data-science' => [
+      'title' => 'Data Science',
+      'description' => 'Learn data analysis, machine learning, and statistical methods for data-driven insights.',
+      'image' => 'course2.jpg',
+      'available_slots' => 1,
+      'course_date' => 'July 5, 2025',
+      'slug' => 'data-science',
+    ],
+    'digital-marketing' => [
+      'title' => 'Digital Marketing',
+      'description' => 'Master SEO, social media marketing, and content strategy for business growth.',
+      'image' => 'course3.jpg',
+      'available_slots' => 0,
+      'course_date' => 'July 22, 2025',
+      'slug' => 'digital-marketing',
+    ],
+    'ui-ux-design' => [
+      'title' => 'UI/UX Design Principles',
+      'description' => 'Learn to create intuitive and engaging user interfaces and experiences.',
+      'image' => 'course4.jpg',
+      'available_slots' => 2,
+      'course_date' => 'July 28, 2025',
+      'slug' => 'ui-ux-design',
+    ],
+    'mobile-app-development' => [
+      'title' => 'Mobile App Development',
+      'description' => 'Build native and cross-platform mobile applications using modern frameworks.',
+      'image' => 'course5.jpg',
+      'available_slots' => 3,
+      'course_date' => 'Aug 04, 2025',
+      'slug' => 'mobile-app-development',
+    ],
+    'cloud-computing' => [
+      'title' => 'Cloud Computing & DevOps',
+      'description' => 'Master cloud platforms and modern development operations practices.',
+      'image' => 'course6.jpg',
+      'available_slots' => 1,
+      'course_date' => 'August 10, 2025',
+      'slug' => 'cloud-computing',
+    ],
+    'cybersecurity' => [
+      'title' => 'Cybersecurity Fundamentals',
+      'description' => 'Learn essential cybersecurity concepts, threat detection, and security best practices.',
+      'image' => 'course7.jpg',
+      'available_slots' => 4,
+      'course_date' => 'July 12, 2025',
+      'slug' => 'cybersecurity',
+    ],
+    'artificial-intelligence' => [
+      'title' => 'Artificial Intelligence & Machine Learning',
+      'description' => 'Explore AI fundamentals, neural networks, and practical machine learning applications.',
+      'image' => 'course8.jpg',
+      'available_slots' => 2,
+      'course_date' => 'July 18, 2025',
+      'slug' => 'artificial-intelligence',
+    ],
+    'blockchain-development' => [
+      'title' => 'Blockchain Development',
+      'description' => 'Master blockchain technology, smart contracts, and decentralized applications.',
+      'image' => 'course9.jpg',
+      'available_slots' => 3,
+      'course_date' => 'July 25, 2025',
+      'slug' => 'blockchain-development',
+    ],
+    'data-analytics' => [
+      'title' => 'Data Analytics & Visualization',
+      'description' => 'Learn to analyze data and create compelling visualizations for business insights.',
+      'image' => 'course10.jpg',
+      'available_slots' => 2,
+      'course_date' => 'August 1, 2025',
+      'slug' => 'data-analytics',
+    ],
+    'software-testing' => [
+      'title' => 'Software Testing & Quality Assurance',
+      'description' => 'Master testing methodologies, automation tools, and quality assurance processes.',
+      'image' => 'course11.jpg',
+      'available_slots' => 5,
+      'course_date' => 'August 8, 2025',
+      'slug' => 'software-testing',
+    ],
+    'project-management' => [
+      'title' => 'Project Management & Agile',
+      'description' => 'Learn project management methodologies, Agile practices, and team leadership skills.',
+      'image' => 'course12.jpg',
+      'available_slots' => 3,
+      'course_date' => 'August 15, 2025',
+      'slug' => 'project-management',
+    ],
+  ];
+
+  // Sort courses by date in ascending order
+  uasort($courses, function($a, $b) {
+    $date_a = strtotime($a['course_date']);
+    $date_b = strtotime($b['course_date']);
+    return $date_a - $date_b;
+  });
+
+  return $courses;
+}
+
+/**
+ * Implements hook_theme_suggestions_contact_form_alter().
+ */
+function mytheme_theme_suggestions_contact_form_alter(array &$suggestions, array $variables) {
+  $suggestions[] = 'contact_form__custom';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for contact form.
+ */
+function mytheme_preprocess_contact_form(&$variables) {
+  $variables['#attached']['library'][] = 'mytheme/contact-page';
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function mytheme_page_attachments(array &$attachments) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $path = \Drupal::service('path.current')->getPath();
+  
+  // Check if this is the courses page
+  if ($path === '/courses' || $path === '/drupal/courses') {
+    $attachments['#attached']['library'][] = 'mytheme/global-styling';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function mytheme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  $path = \Drupal::service('path.current')->getPath();
+  
+  // Debug: Log the current path and route
+  \Drupal::logger('mytheme')->notice('Current path: @path, Route: @route', ['@path' => $path, '@route' => $route_name]);
+  
+  // Add suggestion for courses page
+  if ($path === '/courses' || $path === '/drupal/courses') {
+    $suggestions[] = 'page__courses';
+    \Drupal::logger('mytheme')->notice('Added courses suggestion');
+  }
+  
+  // Add suggestion for about us page
+  if ($path === '/about-us' || $path === '/drupal/about-us' || $path === '/node/3' || strpos($path, 'about') !== false) {
+    $suggestions[] = 'page__about_us';
+    \Drupal::logger('mytheme')->notice('Added about_us suggestion');
+  }
+  
+  // Also check if this is a node with title "Courses" or "About Us"
+  if ($route_name === 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node && $node->getType() === 'page') {
+      // Check if this is the courses page by title
+      if ($node->getTitle() === 'Courses') {
+        $suggestions[] = 'page__courses';
+        \Drupal::logger('mytheme')->notice('Added courses suggestion by title');
+      }
+      // Check if this is the about us page by title
+      if ($node->getTitle() === 'About Us') {
+        $suggestions[] = 'page__about_us';
+        \Drupal::logger('mytheme')->notice('Added about_us suggestion by title');
+      }
+    }
+  }
+  
+  // Debug: Log all suggestions
+  \Drupal::logger('mytheme')->notice('Final suggestions: @suggestions', ['@suggestions' => implode(', ', $suggestions)]);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mytheme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Alter contact form to redirect back to contact page
+  if ($form_id === 'contact_message_feedback_form') {
+    $form['actions']['submit']['#submit'][] = 'mytheme_contact_form_submit';
+  }
+}
+
+/**
+ * Custom submit handler for contact form.
+ */
+function mytheme_contact_form_submit($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // Get the current request
+  $request = \Drupal::request();
+  $current_path = $request->getPathInfo();
+  
+  // If we're on a contact page, redirect back to it
+  if (strpos($current_path, 'contact') !== false) {
+    $form_state->setRedirectUrl(\Drupal\Core\Url::fromUri('internal:' . $current_path));
+  } else {
+    // Fallback to contact page
+    $form_state->setRedirectUrl(\Drupal\Core\Url::fromUri('internal:/contact'));
+  }
+} 

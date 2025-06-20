@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present all user data.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ *
+ * @see template_preprocess_user()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="page">
+  {# Include header #}
+  {% include '@mytheme/layout/header.html.twig' %}
+
+  {# Main content #}
+  <main class="main-content">
+    <div class="custom-register-page">
+      <div class="register-container">
+        <div class="register-header">
+          <h1>{{ 'Create new account'|t }}</h1>
+        </div>
+        {{ page.content }}
+      </div>
+    </div>
+  </main>
+
+  {# Include footer #}
+  {% include '@mytheme/layout/footer.html.twig' %}
+</div> 

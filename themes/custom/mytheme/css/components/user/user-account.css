@@ -1,0 +1,164 @@
+/* User Account Page Styles */
+.user-account-page {
+  padding: 3rem 2rem;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.user-account-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Page Title */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+  padding: 2rem 2rem 0;
+}
+
+/* Tabs Navigation */
+.tabs-wrapper {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 0 2rem;
+}
+
+.tabs--primary {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
+.tabs__tab {
+  margin: 0;
+}
+
+.tabs__link {
+  display: block;
+  padding: 1rem 1.5rem;
+  color: #6c757d;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+}
+
+.tabs__link:hover {
+  color: #667eea;
+  background-color: rgba(102, 126, 234, 0.05);
+  border-bottom-color: #667eea;
+}
+
+.tabs__link.is-active {
+  color: #667eea;
+  background-color: #fff;
+  border-bottom-color: #667eea;
+}
+
+/* Profile Content */
+.profile {
+  padding: 2rem;
+}
+
+.profile .form-item {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.profile .label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.profile .form-item--no-label {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-left: 4px solid #28a745;
+}
+
+/* User Information Display */
+.profile .form-item--no-label .label {
+  color: #28a745;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-account-page {
+    padding: 2rem 1rem;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    padding: 1.5rem 1.5rem 0;
+  }
+  
+  .tabs-wrapper {
+    padding: 0 1rem;
+  }
+  
+  .tabs--primary {
+    flex-direction: column;
+  }
+  
+  .tabs__link {
+    padding: 0.8rem 1rem;
+    border-bottom: none;
+    border-left: 3px solid transparent;
+  }
+  
+  .tabs__link:hover,
+  .tabs__link.is-active {
+    border-bottom-color: transparent;
+    border-left-color: #667eea;
+  }
+  
+  .profile {
+    padding: 1.5rem;
+  }
+  
+  .profile .form-item {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-account-page {
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+    padding: 1rem 1rem 0;
+  }
+  
+  .tabs-wrapper {
+    padding: 0 0.5rem;
+  }
+  
+  .profile {
+    padding: 1rem;
+  }
+} 

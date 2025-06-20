@@ -1,0 +1,533 @@
+/**
+ * Contact page styles
+ */
+
+/* Main contact page layout */
+.contact-page {
+  background-color: #f8f9fa;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  animation: fadeInUp 0.8s ease;
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+/* Contact Information Section */
+.contact-page .contact-info {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.contact-page .contact-info h2 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.contact-page .contact-info > p {
+  color: #6c757d;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  border-left: 4px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+  background: rgba(255, 255, 255, 1);
+}
+
+.contact-item .contact-icon {
+  font-size: 1.5rem;
+  color: #667eea;
+  margin-right: 1rem;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-width: 1.5rem;
+  text-align: center;
+  font-family: Arial, sans-serif !important;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* Fallback for when FontAwesome doesn't load */
+.contact-item i:empty::before {
+  content: attr(data-icon);
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+}
+
+.contact-item h3 {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contact-item p {
+  color: #6c757d;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Contact Form Section */
+.contact-form-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.contact-form-wrapper h2 {
+  color: #2c3e50;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Contact Form Styling */
+.contact-form {
+  max-width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.contact-form .form-item {
+  margin-bottom: 1.5rem;
+}
+
+/* Style read-only name and email fields */
+.contact-form .form-item--name,
+.contact-form .form-item--mail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-form .form-item--name .form-item__label,
+.contact-form .form-item--mail .form-item__label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Style the read-only value display */
+.contact-form .form-item--name .form-item__label + *,
+.contact-form .form-item--mail .form-item__label + * {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 500;
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  background: rgba(255, 255, 255, 1);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #a0aec0;
+}
+
+.contact-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.contact-form .form-actions {
+  margin-top: auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+/* Target all possible button selectors */
+.contact-form .form-submit,
+.contact-form .form-preview,
+.contact-form .button--primary,
+.contact-form .button,
+.contact-form input[type="submit"],
+.contact-form input[type="button"],
+.contact-form button,
+.contact-form .js-form-submit {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  min-width: 140px;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 0.5rem;
+  line-height: 1.2;
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-form .form-submit:hover,
+.contact-form .form-preview:hover,
+.contact-form .button--primary:hover,
+.contact-form .button:hover,
+.contact-form input[type="submit"]:hover,
+.contact-form input[type="button"]:hover,
+.contact-form button:hover,
+.contact-form .js-form-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.contact-form .form-submit:active,
+.contact-form .form-preview:active,
+.contact-form .button--primary:active,
+.contact-form .button:active,
+.contact-form input[type="submit"]:active,
+.contact-form input[type="button"]:active,
+.contact-form button:active,
+.contact-form .js-form-submit:active {
+  transform: translateY(-1px);
+}
+
+/* Alternative styling for preview button if needed */
+.contact-form .form-preview {
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  border: 2px solid #667eea;
+}
+
+.contact-form .form-preview:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* Force center alignment for form actions */
+.contact-form .form-actions > * {
+  margin: 0 auto;
+}
+
+/* Additional targeting for Drupal's specific form structure */
+.contact-form .form-actions .button,
+.contact-form .form-actions input[type="submit"],
+.contact-form .form-actions .js-form-submit {
+  float: none !important;
+  display: inline-block !important;
+  margin: 0 0.5rem !important;
+}
+
+/* Success/Error Messages */
+.messages {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Hide messages header and title */
+.messages__header,
+.messages__title {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+.messages--status {
+  background: rgba(40, 167, 69, 0.1);
+  border: 2px solid #28a745;
+  color: #155724;
+}
+
+.messages--error {
+  background: rgba(220, 53, 69, 0.1);
+  border: 2px solid #dc3545;
+  color: #721c24;
+}
+
+.messages--warning {
+  background: rgba(255, 193, 7, 0.1);
+  border: 2px solid #ffc107;
+  color: #856404;
+}
+
+/* Hide preview button */
+.contact-form .form-preview,
+.contact-form input[name*="preview"],
+.contact-form button[name*="preview"],
+.contact-form .js-form-submit[value*="Preview"],
+.contact-form .js-form-submit[value*="preview"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* Hide "Send yourself a copy" option */
+.contact-form .form-item-copy,
+.contact-form .form-item--copy,
+.contact-form input[name*="copy"],
+.contact-form input[type="checkbox"][name*="copy"],
+.contact-form .form-checkbox[name*="copy"],
+.contact-form label[for*="copy"],
+.contact-form .description[for*="copy"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .contact-page {
+    padding: 1.5rem 1rem;
+  }
+  
+  .contact-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .contact-page .contact-info,
+  .contact-form-wrapper {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 1rem 0.5rem;
+  }
+  
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  
+  .contact-page .contact-info,
+  .contact-form-wrapper {
+    padding: 1.5rem;
+    height: auto;
+    min-height: fit-content;
+  }
+  
+  .contact-page .contact-info h2,
+  .contact-form-wrapper h2 {
+    font-size: 2rem;
+  }
+  
+  .contact-item {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+  
+  .contact-item h3 {
+    font-size: 1.3rem;
+  }
+  
+  .contact-item p {
+    font-size: 1rem;
+  }
+  
+  .contact-item .contact-icon {
+    font-size: 1.25rem;
+  }
+  
+  .contact-form label {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .contact-form .form-submit {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .messages {
+    font-size: 0.85rem;
+  }
+  
+  /* Responsive styling for read-only fields */
+  .contact-form .form-item--name .form-item__label + *,
+  .contact-form .form-item--mail .form-item__label + * {
+    padding: 0.9rem;
+    font-size: 0.95rem;
+    min-height: 2.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-page {
+    padding: 0.75rem 0.25rem;
+  }
+  
+  .contact-page .contact-info,
+  .contact-form-wrapper {
+    padding: 1rem;
+  }
+  
+  .contact-page .contact-info h2,
+  .contact-form-wrapper h2 {
+    font-size: 1.75rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .contact-item h3 {
+    font-size: 1.2rem;
+  }
+  
+  .contact-item p {
+    font-size: 0.95rem;
+  }
+  
+  .contact-form label {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  
+  .contact-item .contact-icon {
+    margin: 2;
+  }
+  
+  .messages {
+    font-size: 0.8rem;
+  }
+  
+  /* Responsive styling for read-only fields */
+  .contact-form .form-item--name .form-item__label + *,
+  .contact-form .form-item--mail .form-item__label + * {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    min-height: 2.6rem;
+  }
+}
+
+/* Animation for page load */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effects for contact items */
+.contact-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.contact-item:hover::before {
+  left: 100%;
+} 

@@ -1,0 +1,108 @@
+{#
+/**
+ * @file
+ * Footer template for the theme.
+ */
+#}
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-grid">
+      {# About Section #}
+      <div class="footer-section">
+        <h3>{{ 'About Us'|t }}</h3>
+        <p>{{ 'Your trusted platform for quality education and professional development.'|t }}</p>
+      </div>
+
+      {# Quick Links Section #}
+      <div class="footer-section">
+        <h3>{{ 'Quick Links'|t }}</h3>
+        <ul class="footer-links">
+          <li><a href="{{ path('<front>') }}">{{ 'Home'|t }}</a></li>
+          <li><a href="/drupal/courses">{{ 'Courses'|t }}</a></li>
+          <li><a href="/drupal/about-us">{{ 'About Us'|t }}</a></li>
+          <li><a href="/drupal/contact">{{ 'Contact'|t }}</a></li>
+        </ul>
+      </div>
+
+      {# Contact Section #}
+      <div class="footer-section">
+        <h3>{{ 'Contact Us'|t }}</h3>
+        <ul class="contact-info">
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ '123 Education Street, Learning City, 12345'|t }}</span>
+          </li>
+          <li>
+            <i class="fas fa-phone"></i>
+            <span>{{ '+1 (555) 123-4567'|t }}</span>
+          </li>
+          <li>
+            <i class="fas fa-envelope"></i>
+            <span>{{ 'info@onedaylearningplatform.com'|t }}</span>
+          </li>
+        </ul>
+      </div>
+
+      {# Newsletter Section #}
+      <div class="footer-section">
+        <h3>{{ 'Newsletter'|t }}</h3>
+        <p>{{ 'Subscribe to our newsletter for updates and exclusive offers.'|t }}</p>
+        <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+          <input type="email" id="newsletterEmail" name="email" placeholder="{{ 'Enter your email'|t }}" required>
+          <button type="submit" id="newsletterSubmit">{{ 'Subscribe'|t }}</button>
+        </form>
+        <div id="newsletterMessage" class="newsletter-message" style="display: none;"></div>
+      </div>
+    </div>
+
+    {# Copyright Section #}
+    <div class="footer-bottom">
+      <p>&copy; {{ 'now'|date('Y') }} {{ 'One Day Learning Platform. All rights reserved.'|t }}</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function handleNewsletterSubmit(event) {
+  event.preventDefault();
+  
+  const form = document.getElementById('newsletterForm');
+  const email = document.getElementById('newsletterEmail').value;
+  const submitButton = document.getElementById('newsletterSubmit');
+  const messageDiv = document.getElementById('newsletterMessage');
+  
+  // Validate email
+  if (!email || !email.includes('@')) {
+    showNewsletterMessage('Please enter a valid email address.', 'error');
+    return;
+  }
+  
+  // Show loading state
+  submitButton.textContent = 'Subscribing...';
+  submitButton.disabled = true;
+  
+  // Simulate API call (replace with actual newsletter service)
+  setTimeout(() => {
+    console.log('Newsletter subscription for:', email);
+    
+    showNewsletterMessage('Thank you for subscribing! You will receive updates soon.', 'success');
+    form.reset();
+    
+    // Reset button
+    submitButton.textContent = 'Subscribe';
+    submitButton.disabled = false;
+  }, 1500);
+}
+
+function showNewsletterMessage(message, type) {
+  const messageDiv = document.getElementById('newsletterMessage');
+  messageDiv.textContent = message;
+  messageDiv.className = `newsletter-message newsletter-message--${type}`;
+  messageDiv.style.display = 'block';
+  
+  // Hide message after 5 seconds
+  setTimeout(() => {
+    messageDiv.style.display = 'none';
+  }, 5000);
+}
+</script> 

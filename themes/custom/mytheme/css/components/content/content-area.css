@@ -1,0 +1,138 @@
+/**
+ * @file
+ * Content area styling.
+ */
+
+/* Main content area */
+.layout-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Main content wrapper */
+main {
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Content region */
+.region-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Page title */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Content text */
+.content-area p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+/* Content headings */
+.content-area h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin: 2rem 0 1rem;
+}
+
+.content-area h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 1.5rem 0 1rem;
+}
+
+/* Content lists */
+.content-area ul,
+.content-area ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.content-area li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Content links */
+.content-area a {
+  color: #0071b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.content-area a:hover {
+  color: #005a94;
+  text-decoration: underline;
+}
+
+/* Content images */
+.content-area img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 1.5rem 0;
+}
+
+/* Content blockquotes */
+.content-area blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #0071b8;
+  background-color: #f8f9fa;
+  font-style: italic;
+}
+
+/* Content tables */
+.content-area table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+}
+
+.content-area th,
+.content-area td {
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+}
+
+.content-area th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .layout-container {
+    padding: 0 0.5rem;
+  }
+
+  main {
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .content-area p {
+    font-size: 1rem;
+  }
+} 

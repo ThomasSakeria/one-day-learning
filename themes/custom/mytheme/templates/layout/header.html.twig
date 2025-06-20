@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Header template for branding.
+ */
+#}
+<header class="site-header">
+  <div class="site-header__inner">
+    <div class="site-branding">
+      {% if site_logo %}
+        <a href="{{ path('<front>') }}" class="site-branding__logo" title="{{ 'Home'|t }}" rel="home">
+          <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
+        </a>
+      {% endif %}
+      {% if site_name %}
+        <div class="site-branding__text">
+          <a href="{{ path('<front>') }}" class="site-branding__name" title="{{ 'Home'|t }}" rel="home">
+            {{ site_name }}
+          </a>
+          {% if site_slogan %}
+            <div class="site-branding__slogan">{{ site_slogan }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="site-header__actions">
+      {% if logged_in %}
+        <a href="{{ path('user.page') }}" class="user-account-link">{{ 'My Account'|t }}</a>
+        <a href="{{ path('user.logout') }}" class="user-logout-link">{{ 'Log out'|t }}</a>
+      {% else %}
+        <a href="{{ path('user.login') }}" class="user-login-link">{{ 'Log in'|t }}</a>
+        <a href="{{ path('user.register') }}" class="user-register-link">{{ 'Register'|t }}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Main Navigation #}
+  <nav class="main-navigation">
+    <div class="nav-container">
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="{{ path('<front>') }}" class="nav-link">{{ 'Home'|t }}</a>
+        </li>
+        <li class="nav-item">
+          <a href="/drupal/courses" class="nav-link">{{ 'Courses'|t }}</a>
+        </li>
+        <li class="nav-item">
+          <a href="/drupal/about-us" class="nav-link">{{ 'About'|t }}</a>
+        </li>
+        <li class="nav-item">
+          <a href="/drupal/contact" class="nav-link">{{ 'Contact'|t }}</a>
+        </li>
+      </ul>
+  </div>
+  </nav>
+</header> 

@@ -1,0 +1,430 @@
+{#
+/**
+ * @file
+ * Theme implementation to display the courses page with filters.
+ */
+#}
+<div class="layout-container">
+  {% include '@mytheme/layout/header.html.twig' %}
+  
+  <main role="main" class="content-area">
+    <a id="main-content" tabindex="-1"></a>
+    
+    <div class="courses-page-section">
+      <div class="courses-page-content">
+        <div class="courses-header">
+          <h1>All Courses</h1>
+          <p>Discover our comprehensive range of courses designed to enhance your skills and advance your career.</p>
+        </div>
+
+        {% if courses %}
+          {# Filters Section #}
+          <div class="courses-filters">
+            <div class="filter-group">
+              <label for="topicFilter">Filter by Topic:</label>
+              <select id="topicFilter" class="filter-select">
+                <option value="">All Topics</option>
+                <option value="web-development">Web Development</option>
+                <option value="data-science">Data Science</option>
+                <option value="digital-marketing">Digital Marketing</option>
+                <option value="ui-ux-design">UI/UX Design</option>
+                <option value="mobile-app-development">Mobile App Development</option>
+                <option value="cloud-computing">Cloud Computing</option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <label for="dateFilter">Filter by Date:</label>
+              <select id="dateFilter" class="filter-select">
+                <option value="">All Dates</option>
+                <option value="march">March 2024</option>
+                <option value="april">April 2024</option>
+                <option value="may">May 2024</option>
+              </select>
+            </div>
+            
+            <button id="clearFilters" class="clear-filters-btn">Clear Filters</button>
+          </div>
+
+          {# Course Count #}
+          <div class="course-count">
+            <span id="courseCount">{{ courses|length }}</span> courses found
+          </div>
+
+          {# Courses Grid #}
+          <div class="courses-grid" id="coursesGrid">
+            {% for course_slug, course in courses %}
+              <div class="course-card" data-topic="{{ course_slug }}" data-date="{{ course.course_date|lower|replace({' ': '-'}) }}">
+                <div class="course-image">
+                  <img src="{{ base_path ~ directory }}/images/{{ course.image }}" alt="{{ course.title }}">
+                  {% if course.available_slots == 0 %}
+                    <div class="course-badge fully-booked">Fully Booked</div>
+                  {% endif %}
+                </div>
+                <div class="course-info">
+                  <h3>{{ course.title }}</h3>
+                  <p>{{ course.description }}</p>
+                  <div class="course-meta">
+                    <span class="course-date"><i class="fas fa-calendar"></i> {{ course.course_date }}</span>
+                    {% if course.available_slots > 0 %}
+                      <span class="course-slots available"><i class="fas fa-users"></i> {{ course.available_slots }} slots available</span>
+                    {% else %}
+                      <span class="course-slots unavailable"><i class="fas fa-times-circle"></i> Not available</span>
+                    {% endif %}
+                  </div>
+                  <button class="course-link" onclick="showCourseDetails('{{ course_slug }}', '{{ course.title }}')">Learn More</button>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          {# No Results Message #}
+          <div id="noResults" class="no-results" style="display: none;">
+            <div class="no-results-content">
+              <i class="fas fa-search"></i>
+              <h3>No courses found</h3>
+              <p>Try adjusting your filters to find more courses.</p>
+              <button onclick="clearAllFilters()" class="clear-filters-btn">Clear All Filters</button>
+            </div>
+          </div>
+        {% else %}
+          {# Fallback when no courses are available #}
+          <div class="no-courses">
+            <div class="no-courses-content">
+              <i class="fas fa-graduation-cap"></i>
+              <h3>No courses available at the moment</h3>
+              <p>We're currently updating our course catalog. Please check back soon for new courses.</p>
+              <a href="{{ path('<front>') }}" class="back-home-btn">Back to Home</a>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {# Course Details Modal #}
+    <div id="courseModal" class="course-modal" style="display: none;">
+      <div class="course-modal-content">
+        <span class="close-modal" onclick="closeCourseModal()">&times;</span>
+        <div id="courseModalContent">
+          <!-- Course content will be loaded here -->
+        </div>
+      </div>
+    </div>
+
+    {# Enrollment Form Modal #}
+    <div id="enrollmentModal" class="enrollment-modal" style="display: none;">
+      <div class="enrollment-modal-content">
+        <span class="close-modal" onclick="closeEnrollmentModal()">&times;</span>
+        <div id="enrollmentFormContent">
+          <h2>Enroll in <span id="enrollmentCourseTitle"></span></h2>
+          <p class="enrollment-description">Please provide your details to complete the enrollment process.</p>
+          
+          <form id="enrollmentForm" onsubmit="submitEnrollment(event)">
+            <div class="form-group">
+              <label for="enrollmentName">Full Name *</label>
+              <input type="text" id="enrollmentName" name="name" required placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+              <label for="enrollmentEmail">Email Address *</label>
+              <input type="email" id="enrollmentEmail" name="email" required placeholder="Enter your email address">
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="cancel-button" onclick="closeEnrollmentModal()">Cancel</button>
+              <button type="submit" class="submit-button">Enroll Now</button>
+            </div>
+          </form>
+        </div>
+        
+        <div id="enrollmentSuccess" style="display: none;">
+          <div class="success-content">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h3>Enrollment Successful!</h3>
+            <p>Thank you for enrolling in <span id="successCourseTitle"></span>.</p>
+            <p>You will receive course details and further instructions via email shortly.</p>
+            <button class="close-success-button" onclick="closeEnrollmentModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {% include '@mytheme/layout/footer.html.twig' %}
+</div>
+
+{% if courses %}
+<script>
+// Course data for the modal
+const courseData = {
+  {% for course_slug, course in courses %}
+    '{{ course_slug }}': {
+      title: '{{ course.title }}',
+      description: '{{ course.description }}',
+      image: '{{ course.image }}',
+      course_date: '{{ course.course_date }}',
+      available_slots: {{ course.available_slots }},
+      objectives: [
+        {% if course_slug == 'web-development' %}
+          'Build responsive websites using HTML5 and CSS3',
+          'Master JavaScript ES6+ and modern frameworks',
+          'Learn React.js for building dynamic user interfaces',
+          'Understand backend development with Node.js',
+          'Deploy applications to production environments',
+          'Work with databases and APIs'
+        {% elseif course_slug == 'data-science' %}
+          'Master Python for data analysis',
+          'Learn statistical analysis and hypothesis testing',
+          'Build machine learning models',
+          'Create compelling data visualizations',
+          'Work with big data technologies',
+          'Deploy machine learning models'
+        {% elseif course_slug == 'digital-marketing' %}
+          'Understand digital marketing fundamentals',
+          'Master SEO and content optimization',
+          'Create effective social media strategies',
+          'Run successful paid advertising campaigns',
+          'Analyze marketing performance metrics',
+          'Develop comprehensive marketing plans'
+        {% elseif course_slug == 'ui-ux-design' %}
+          'Understand user-centered design principles',
+          'Master design thinking methodology',
+          'Create wireframes and prototypes',
+          'Conduct user research and testing',
+          'Design for accessibility and usability',
+          'Use modern design tools effectively'
+        {% elseif course_slug == 'mobile-app-development' %}
+          'Develop native iOS apps with Swift',
+          'Build Android apps with Kotlin',
+          'Create cross-platform apps with React Native',
+          'Implement mobile app architecture patterns',
+          'Integrate APIs and backend services',
+          'Publish apps to app stores'
+        {% elseif course_slug == 'cloud-computing' %}
+          'Master AWS, Azure, and Google Cloud platforms',
+          'Implement CI/CD pipelines',
+          'Work with Docker and Kubernetes',
+          'Manage infrastructure as code',
+          'Monitor and optimize cloud resources',
+          'Implement security best practices'
+        {% endif %}
+      ],
+      audience: [
+        {% if course_slug == 'web-development' %}
+          'Beginners with no programming experience',
+          'Designers looking to learn front-end development',
+          'Developers wanting to upgrade their skills',
+          'Entrepreneurs building their own websites'
+        {% elseif course_slug == 'data-science' %}
+          'Analysts looking to advance their skills',
+          'Developers interested in AI/ML',
+          'Business professionals needing data insights',
+          'Students pursuing data science careers'
+        {% elseif course_slug == 'digital-marketing' %}
+          'Marketing professionals',
+          'Small business owners',
+          'Entrepreneurs and startups',
+          'Career changers interested in marketing'
+        {% elseif course_slug == 'ui-ux-design' %}
+          'Designers wanting to specialize in UX',
+          'Developers interested in design',
+          'Product managers and entrepreneurs',
+          'Creative professionals seeking new skills'
+        {% elseif course_slug == 'mobile-app-development' %}
+          'Web developers wanting to learn mobile',
+          'Computer science students',
+          'Entrepreneurs building mobile products',
+          'Developers seeking mobile specialization'
+        {% elseif course_slug == 'cloud-computing' %}
+          'System administrators',
+          'Software developers',
+          'IT professionals',
+          'DevOps engineers'
+        {% endif %}
+      ]
+    }{% if not loop.last %},{% endif %}
+  {% endfor %}
+};
+
+let currentCourseSlug = '';
+
+// Filter functionality
+function filterCourses() {
+  const topicFilter = document.getElementById('topicFilter').value;
+  const dateFilter = document.getElementById('dateFilter').value;
+  
+  const courseCards = document.querySelectorAll('.course-card');
+  let visibleCount = 0;
+  
+  courseCards.forEach(card => {
+    const topic = card.dataset.topic;
+    const date = card.dataset.date;
+    
+    let showCard = true;
+    
+    // Topic filter
+    if (topicFilter && topic !== topicFilter) {
+      showCard = false;
+    }
+    
+    // Date filter
+    if (dateFilter && !date.includes(dateFilter)) {
+      showCard = false;
+    }
+    
+    if (showCard) {
+      card.style.display = 'block';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  
+  // Update course count
+  document.getElementById('courseCount').textContent = visibleCount;
+  
+  // Show/hide no results message
+  const noResults = document.getElementById('noResults');
+  const coursesGrid = document.getElementById('coursesGrid');
+  
+  if (visibleCount === 0) {
+    noResults.style.display = 'block';
+    coursesGrid.style.display = 'none';
+  } else {
+    noResults.style.display = 'none';
+    coursesGrid.style.display = 'grid';
+  }
+}
+
+function clearAllFilters() {
+  document.getElementById('topicFilter').value = '';
+  document.getElementById('dateFilter').value = '';
+  filterCourses();
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('topicFilter').addEventListener('change', filterCourses);
+  document.getElementById('dateFilter').addEventListener('change', filterCourses);
+  document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
+});
+
+function showCourseDetails(courseSlug, courseTitle) {
+  const course = courseData[courseSlug];
+  if (!course) return;
+
+  const modal = document.getElementById('courseModal');
+  const content = document.getElementById('courseModalContent');
+  
+  const slotsText = course.available_slots > 0 ? `${course.available_slots} slots available` : 'Not available';
+  const slotsClass = course.available_slots > 0 ? 'available' : 'unavailable';
+  const slotsIcon = course.available_slots > 0 ? 'fas fa-users' : 'fas fa-times-circle';
+  
+  content.innerHTML = `
+    <div class="course-details-section">
+      <div class="course-details-content">
+        <div class="course-header">
+          <div class="course-image">
+            <img src="{{ base_path ~ directory }}/images/${course.image}" alt="${course.title}">
+          </div>
+          <div class="course-info">
+            <h1>${course.title}</h1>
+            <p class="course-description">${course.description}</p>
+            <div class="course-meta">
+              <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>Course Date: ${course.course_date}</span>
+              </div>
+              <div class="meta-item">
+                <i class="${slotsIcon}"></i>
+                <span class="${slotsClass}">${slotsText}</span>
+              </div>
+            </div>
+            <div class="course-actions">
+              ${course.available_slots > 0 ? '<button class="enroll-button" onclick="showEnrollmentForm(\'' + courseSlug + '\', \'' + course.title + '\')">Enroll Now</button>' : '<span class="enroll-button disabled">Fully Booked</span>'}
+            </div>
+          </div>
+        </div>
+
+        <div class="course-content">
+          <div class="content-section">
+            <h2>What You'll Learn</h2>
+            <p class="learning-objectives">
+              ${course.objectives.join(', ')}
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>Who This Course Is For</h2>
+            <p class="audience-list">
+              ${course.audience.join(', ')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  modal.style.display = 'block';
+}
+
+function closeCourseModal() {
+  document.getElementById('courseModal').style.display = 'none';
+}
+
+function showEnrollmentForm(courseSlug, courseTitle) {
+  currentCourseSlug = courseSlug;
+  document.getElementById('enrollmentCourseTitle').textContent = courseTitle;
+  document.getElementById('successCourseTitle').textContent = courseTitle;
+  
+  // Reset form
+  document.getElementById('enrollmentForm').reset();
+  
+  // Show enrollment form
+  document.getElementById('enrollmentFormContent').style.display = 'block';
+  document.getElementById('enrollmentSuccess').style.display = 'none';
+  
+  // Close course modal and show enrollment modal
+  closeCourseModal();
+  document.getElementById('enrollmentModal').style.display = 'block';
+}
+
+function closeEnrollmentModal() {
+  document.getElementById('enrollmentModal').style.display = 'none';
+}
+
+function submitEnrollment(event) {
+  event.preventDefault();
+  
+  const name = document.getElementById('enrollmentName').value;
+  const email = document.getElementById('enrollmentEmail').value;
+  
+  // Here you would typically send the data to your server
+  // For now, we'll just show the success message
+  console.log('Enrollment submitted:', { courseSlug: currentCourseSlug, name, email });
+  
+  // Hide form and show success message
+  document.getElementById('enrollmentFormContent').style.display = 'none';
+  document.getElementById('enrollmentSuccess').style.display = 'block';
+  
+  // Auto-close after 5 seconds
+  setTimeout(() => {
+    closeEnrollmentModal();
+  }, 5000);
+}
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+  const courseModal = document.getElementById('courseModal');
+  const enrollmentModal = document.getElementById('enrollmentModal');
+  
+  if (event.target == courseModal) {
+    courseModal.style.display = 'none';
+  }
+  
+  if (event.target == enrollmentModal) {
+    enrollmentModal.style.display = 'none';
+  }
+}
+</script>
+{% endif %} 

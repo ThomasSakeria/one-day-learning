@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * Theme implementation to display the About Us page (Node 3).
+ */
+#}
+<div class="layout-container">
+  {% include '@mytheme/layout/header.html.twig' %}
+
+  <main role="main" class="main-content">
+    <a id="main-content" tabindex="-1"></a>
+
+    <div class="about-us-page">
+      <div class="about-us-hero">
+        <div class="about-us-hero-content">
+          <h1 class="page-title">About Us</h1>
+          <div class="about-us-intro">
+            <p>We believe in the power of developing others to have a strong impact on careers, competence, and culture. By helping others learn new skills and technologies, we empower individuals to support organizational growth. It's why many around the world have trusted One Day Learning to develop critical skills training programs worldwide. We understand that the rapid pace of today's business and technological demands requires a learning approach that meets both individual and organizational needs. The One Day Learning platform addresses workforce development needs for today and tomorrow. We offer tailored learning solutions that produce quantifiable results to organizations around the world. Our learning ecosystem is designed to support the integration of learning into the developmental process, and is constantly evolving to meet technological advances and individual learning needs.</p>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="about-us-features">
+        <div class="about-us-features-content">
+          <div class="feature-item">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>World's Largest Collection</h3>
+            <p>Partnered content, proprietary courses, and certification resources</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-users"></i>
+            <h3>Global Expertise</h3>
+            <p>500+ real-world expert instructors worldwide</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-chart-line"></i>
+            <h3>Quantifiable Results</h3>
+            <p>Tailored learning solutions that produce measurable outcomes</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-us-cta">
+        <div class="about-us-cta-content">
+          <h2>Ready to Transform Your Learning Journey?</h2>
+          <p>Join thousands of organizations and professionals who trust Learning Tree for their development needs.</p>
+          <a href="/drupal/contact" class="cta-button">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {% include '@mytheme/layout/footer.html.twig' %}
+</div> 

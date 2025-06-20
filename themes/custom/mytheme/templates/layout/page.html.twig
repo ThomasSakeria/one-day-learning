@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ */
+#}
+<div class="layout-container">
+  {% include '@mytheme/layout/header.html.twig' %}
+
+  <main role="main" class="content-area">
+    <a id="main-content" tabindex="-1"></a>
+    {{ page.content }}
+  </main>
+
+  {% include '@mytheme/layout/footer.html.twig' %}
+</div> 
