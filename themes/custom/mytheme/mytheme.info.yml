@@ -1,7 +1,7 @@
 name: My Theme
 type: theme
 base theme: claro
-description: 'A custom theme for Learning Tree'
+description: 'A custom theme for One Day Learning Platform'
 core_version_requirement: ^9 || ^10
 libraries:
   - mytheme/global-styling
@@ -16,15 +16,5 @@ libraries-extend:
 
 regions:
   header: Header
-  primary_menu: 'Primary menu'
-  secondary_menu: 'Secondary menu'
-  page_top: 'Page top'
-  page_bottom: 'Page bottom'
-  highlighted: Highlighted
-  featured_top: 'Featured top'
-  breadcrumb: Breadcrumb
   content: Content
-  sidebar_first: 'Sidebar first'
-  sidebar_second: 'Sidebar second'
   footer: Footer
-  search: 'Search (Header)' 

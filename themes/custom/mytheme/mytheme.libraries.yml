@@ -2,8 +2,7 @@ global-styling:
   version: 1.x
   css:
     theme:
-      css/components/navigation/horizontal-menu.css: {}
-      css/components/navigation/toolbar-menu.css: {}
+      css/components/layout/toolbar-menu.css: {}
       css/components/layout/header.css: {}
       css/components/layout/header-actions.css: {}
       css/components/content/content-area.css: {}
@@ -19,6 +18,9 @@ global-styling:
       css/components/user/custom-register-page.css: {}
       css/components/user/user-account.css: {}
       css/components/contact/contact-page.css: {}
+  js:
+    js/image-loader.js: {}
+    js/fix-course-details.js: {}
   dependencies:
     - core/fontawesome
 
