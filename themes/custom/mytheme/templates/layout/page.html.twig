@@ -11,7 +11,7 @@
 <div class="layout-container">
   {# Include the site header. #}
   {% include '@mytheme/layout/header.html.twig' %}
-  
+
   <main role="main" class="content-area">
     <a id="main-content" tabindex="-1"></a>
     
@@ -22,7 +22,7 @@
     #}
     {% block content %}
       {# Default content area if not overridden. #}
-      {{ page.content }}
+    {{ page.content }}
     {% endblock %}
   </main>
 
@@ -76,7 +76,7 @@
 
   {# Include the site footer. #}
   {% include '@mytheme/layout/footer.html.twig' %}
-</div>
+</div> 
 
 <script>
 {% if courses %}
@@ -106,7 +106,25 @@ const courseData = {
         'Develop native iOS apps with Swift', 'Build Android apps with Kotlin', 'Create cross-platform apps with React Native', 'Implement mobile app architecture patterns', 'Integrate APIs and backend services', 'Publish apps to app stores'
         
         {% elseif course_slug == 'cloud-computing' %}
-        'Master AWS, Azure, and Google Cloud platforms', 'Implement CI/CD pipelines', 'Work with Docker and Kubernetes', 'Manage infrastructure as code', 'Monitor and optimize cloud resources', 'Implement security best practices'{% endif %}
+        'Master AWS, Azure, and Google Cloud platforms', 'Implement CI/CD pipelines', 'Work with Docker and Kubernetes', 'Manage infrastructure as code', 'Monitor and optimize cloud resources', 'Implement security best practices'
+
+        {% elseif course_slug == 'cybersecurity' %}
+        'Understand cybersecurity fundamentals and threats', 'Learn network security and monitoring', 'Master ethical hacking and penetration testing', 'Implement security controls and policies', 'Conduct security assessments and audits', 'Develop incident response procedures'
+
+        {% elseif course_slug == 'artificial-intelligence' %}
+        'Master machine learning algorithms and techniques', 'Build neural networks and deep learning models', 'Implement natural language processing solutions', 'Create computer vision applications', 'Deploy AI models to production', 'Understand AI ethics and responsible development'
+
+        {% elseif course_slug == 'blockchain-development' %}
+        'Understand blockchain technology and cryptocurrencies', 'Develop smart contracts with Solidity', 'Build decentralized applications (DApps)', 'Master Web3.js and blockchain APIs', 'Implement consensus mechanisms', 'Create secure blockchain solutions'
+
+        {% elseif course_slug == 'data-analytics' %}
+        'Master data analysis techniques and tools', 'Create compelling data visualizations', 'Learn statistical analysis and modeling', 'Work with big data technologies', 'Implement business intelligence solutions', 'Communicate insights effectively'
+
+        {% elseif course_slug == 'software-testing' %}
+        'Master testing methodologies and strategies', 'Implement automated testing frameworks', 'Conduct performance and load testing', 'Learn test-driven development practices', 'Master quality assurance processes', 'Use modern testing tools and platforms'
+
+        {% elseif course_slug == 'project-management' %}
+        'Master project management methodologies', 'Implement Agile and Scrum practices', 'Develop leadership and team management skills', 'Create project plans and schedules', 'Manage project risks and resources', 'Deliver successful project outcomes'{% endif %}
       ],
       audience: [
         {% if course_slug == 'web-development' %}
@@ -125,7 +143,25 @@ const courseData = {
         'Web developers wanting to learn mobile', 'Computer science students', 'Entrepreneurs building mobile products', 'Developers seeking mobile specialization'
 
         {% elseif course_slug == 'cloud-computing' %}
-        'System administrators', 'DevOps engineers', 'Software developers', 'IT professionals wanting cloud skills'{% endif %}
+        'System administrators', 'DevOps engineers', 'Software developers', 'IT professionals wanting cloud skills'
+
+        {% elseif course_slug == 'cybersecurity' %}
+        'IT professionals and system administrators', 'Network engineers and security analysts', 'Developers interested in security', 'Students pursuing cybersecurity careers'
+
+        {% elseif course_slug == 'artificial-intelligence' %}
+        'Data scientists and analysts', 'Software developers and engineers', 'Researchers and academics', 'Business professionals interested in AI'
+
+        {% elseif course_slug == 'blockchain-development' %}
+        'Developers interested in blockchain technology', 'Entrepreneurs building DApps', 'Financial professionals', 'Students pursuing blockchain careers'
+
+        {% elseif course_slug == 'data-analytics' %}
+        'Business analysts and data professionals', 'Managers and decision makers', 'Marketing and sales professionals', 'Students interested in analytics'
+
+        {% elseif course_slug == 'software-testing' %}
+        'Software developers and QA engineers', 'Test automation specialists', 'Project managers and team leads', 'Students pursuing testing careers'
+
+        {% elseif course_slug == 'project-management' %}
+        'Project managers and team leads', 'Business analysts and consultants', 'Entrepreneurs and startup founders', 'Professionals seeking leadership roles'{% endif %}
       ]
     }{% if not loop.last %},{% endif %}
   {% endfor %}
@@ -236,5 +272,85 @@ window.onclick = function(event) {
     enrollmentModal.style.display = 'none';
   }
 }
+
+// Course filtering functionality (shared across pages)
+function filterCourses() {
+  const topicFilter = document.getElementById('topicFilter');
+  const dateFilter = document.getElementById('dateFilter');
+  
+  if (!topicFilter || !dateFilter) return; // Only run if filters exist
+  
+  const topicValue = topicFilter.value;
+  const dateValue = dateFilter.value;
+  const courseCards = document.querySelectorAll('.course-card');
+  let visibleCount = 0;
+  
+  courseCards.forEach(card => {
+    const topic = card.dataset.topic;
+    const date = card.dataset.date;
+    let showCard = true;
+    
+    if (topicValue && topic !== topicValue) {
+      showCard = false;
+    }
+    if (dateValue && !date.includes(dateValue)) {
+      showCard = false;
+    }
+    
+    if (showCard) {
+      card.style.display = 'block';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  
+  // Update course count
+  const courseCountElement = document.getElementById('courseCount');
+  if (courseCountElement) {
+    courseCountElement.textContent = visibleCount;
+  }
+  
+  // Show/hide no results message
+  const noResults = document.getElementById('noResults');
+  const coursesGrid = document.getElementById('coursesGrid');
+  
+  if (noResults && coursesGrid) {
+    if (visibleCount === 0) {
+      noResults.style.display = 'block';
+      coursesGrid.style.display = 'none';
+    } else {
+      noResults.style.display = 'none';
+      coursesGrid.style.display = 'grid';
+    }
+  }
+}
+
+function clearAllFilters() {
+  const topicFilter = document.getElementById('topicFilter');
+  const dateFilter = document.getElementById('dateFilter');
+  
+  if (topicFilter) topicFilter.value = '';
+  if (dateFilter) dateFilter.value = '';
+  
+  filterCourses();
+}
+
+// Initialize course filtering when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  const topicFilter = document.getElementById('topicFilter');
+  const dateFilter = document.getElementById('dateFilter');
+  const clearFiltersBtn = document.getElementById('clearFilters');
+  
+  if (topicFilter) {
+    topicFilter.addEventListener('change', filterCourses);
+  }
+  if (dateFilter) {
+    dateFilter.addEventListener('change', filterCourses);
+  }
+  if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener('click', clearAllFilters);
+  }
+});
 {% endif %}
 </script> 

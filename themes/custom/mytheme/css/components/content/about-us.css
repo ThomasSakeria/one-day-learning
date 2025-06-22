@@ -167,7 +167,7 @@
 }
 
 .about-us-cta {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 2rem 0;
   text-align: center;
   color: #fff;
@@ -186,30 +186,36 @@
 .about-us-cta h2 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
+  color: #ffffff;
 }
 
 .about-us-cta p {
   font-size: 1.2rem;
   margin-bottom: 1rem;
-  opacity: 0.9;
+  opacity: 0.95;
+  color: #ffffff;
 }
 
 .cta-button {
   display: inline-block;
   padding: 15px 40px;
-  background-color: #fff;
-  color: #007bff;
+  background: rgba(255, 255, 255, 0.95);
+  color: #667eea;
   text-decoration: none;
-  border-radius: 30px;
+  border-radius: 12px;
   font-size: 1.1rem;
-  font-weight: bold;
+  font-weight: 600;
   transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .cta-button:hover {
-  background-color: #f8f9fa;
+  background: #ffffff;
+  color: #667eea;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
